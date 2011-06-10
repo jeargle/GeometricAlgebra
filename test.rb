@@ -1,4 +1,4 @@
-#!/usr/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 #require 'geometricAlgebra'
 require 'multiVector2D'
@@ -11,9 +11,6 @@ num2 = MultiVector2D.new(0,0,0,3.0)
 num3 = MultiVector2D.new(4.0,0,0,0)
 num4 = MultiVector2D.new(1.0,2.0,3.0,4.0)
 num5 = MultiVector2D.new(0,2.0,1.0,0)
-num6 = MultiVector2D.new(0,0,1.0,0)
-num7 = MultiVector2D.new(0,1.0,1.0,0)
-num8 = MultiVector2D.new(0,0.5,0.5,0)
 
 puts ""
 puts "Grades"
@@ -94,6 +91,10 @@ puts "num1 num3 = #{geom13}"
 puts "num1 num4 = #{geom14}"
 puts "num1 num5 = #{geom15}"
 puts "num5 num1 = #{geom51}"
+
+num6 = MultiVector2D.new(0,0,1.0,0)
+num7 = MultiVector2D.new(0,1.0,1.0,0)
+num8 = MultiVector2D.new(0,0.5,0.5,0)
 
 puts ""
 puts "Rotation"
