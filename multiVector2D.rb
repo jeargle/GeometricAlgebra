@@ -42,17 +42,18 @@ class MultiVector2D
   # return 0-vector (scalar)
   # a*b = 1/2 (ab + ba)
   def dot(num)
-    return MultiVector2D.new(0.5,0,0,0).geom(self.geom(num) + num.geom(self))
+    return MultiVector2D.new(0.5,0.0,0.0,0.0).geom(self.geom(num) + num.geom(self))
   end
 
   # Wedge product (outer product)
   # return 2-vector
   # a^b = 1/2 (ab - ba)
   def ^(num)
-    blade0 = @blade0 * num.blade0
-    blade1 = num.blade1 * @blade0 + @blade1 * num.blade0
-    blade2 = @blade0 * num.blade2 + @blade2 * num.blade0 + (@blade1[0] * num.blade1[1]) - (@blade1[1] * num.blade1[0])
-    return MultiVector2D.new(blade0,blade1[0],blade1[1],blade2)
+    #blade0 = @blade0 * num.blade0
+    #blade1 = num.blade1 * @blade0 + @blade1 * num.blade0
+    #blade2 = @blade0 * num.blade2 + @blade2 * num.blade0 + (@blade1[0] * num.blade1[1]) - (@blade1[1] * num.blade1[0])
+    #return MultiVector2D.new(blade0,blade1[0],blade1[1],blade2)
+    return MultiVector2D.new(0.5,0.0,0.0,0.0).geom(self.geom(num) - num.geom(self))
   end
 
   # Geometric product
@@ -86,7 +87,7 @@ class MultiVector2D
 
   # Rotate multivector by given angle
   def rotate(angle)
-    return geom(MultiVector2D.new(cos(angle),0,0,sin(angle)))
+    return geom(MultiVector2D.new(cos(angle),0.0,0.0,sin(angle)))
   end
 
   # Return the multivector's grade
@@ -99,9 +100,27 @@ class MultiVector2D
     return @grade.isGrade?(grade)
   end
 
-  # Whether the multivector is a true multivector
-  def multivector?
-    return @grade.multivector?
+  # Whether multivector only has elements of a single grade
+  def homogeneous?
+    return @grade.homogeneous?
+  end
+
+  # Return a homogeneous multivector that is the projection of elements
+  #   for a given grade
+  # @param projGrade Grad to project onto.
+  # @return Homogeneous MultiVector2D.
+  def getGrade(projGrade)
+    case projGrade
+      when 0
+      return MultiVector2D.new(@blade0,0.0,0.0,0.0) 
+      when 1
+      return MultiVector2D.new(0.0,@blade1[0],@blade1[1],0.0) 
+      when 2
+      return MultiVector2D.new(0.0,0.0,0.0,@blade2) 
+      else
+      print "Error: invalid grade, #{projGrade}"
+      return
+    end
   end
 
   # String version of the multivector

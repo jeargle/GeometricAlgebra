@@ -54,17 +54,14 @@ class MultiVector3D
   # return 0-vector (scalar)
   # a*b = 1/2 (ab + ba)
   def dot(num)
-    return MultiVector3D.new(0.5,0,0,0).geom(self.geom(num) + num.geom(self))
+    return MultiVector3D.new(0.5,0,0,0,0,0,0,0).geom(self.geom(num) + num.geom(self))
   end
 
   # Wedge product (outer product)
-  # return 2-vector
+  # return 3-vector
   # a^b = 1/2 (ab - ba)
   def ^(num)
-    blade0 = @blade0 * num.blade0
-    blade1 = num.blade1 * @blade0 + @blade1 * num.blade0
-    blade2 = @blade0 * num.blade2 + @blade2 * num.blade0 + (@blade1[0] * num.blade1[1]) - (@blade1[1] * num.blade1[0])
-    return MultiVector3D.new(blade0,blade1[0],blade1[1],blade2)
+    return MultiVector3D.new(0.5,0,0,0,0,0,0,0).geom(self.geom(num) - num.geom(self))
   end
 
   # Geometric product
@@ -96,7 +93,7 @@ class MultiVector3D
       @blade2[0] * num.blade1[1] -
       @blade2[1] * num.blade3 -
       @blade2[2] * num.blade1[1] -
-      @blade3 * num.blade[2][1],
+      @blade3 * num.blade2[1],
       @blade0 * num.blade1[1] +
       @blade1[0] * num.blade2[0] +
       @blade1[1] * num.blade0 -
@@ -165,9 +162,33 @@ class MultiVector3D
     return @grade.isGrade?(grade)
   end
 
-  # Whether the multivector is a true multivector
-  def multivector?
-    return @grade.multivector?
+  # Whether multivector only has elements of a single grade
+  def homogeneous?
+    return @grade.homogeneous?
+  end
+
+  # Return a homogeneous multivector that is the projection of elements
+  #   for a given grade
+  # @param projGrade Grad to project onto.
+  # @return Homogeneous MultiVector3D.
+  def getGrade(projGrade)
+    case projGrade
+      when 0
+      return MultiVector3D.new(@blade0,0.0,0.0,0.0,
+			       0.0,0.0,0.0,0.0)
+      when 1
+      return MultiVector3D.new(0.0,@blade1[0],@blade1[1],@blade1[2],
+			       0.0,0.0,0.0,0.0)
+      when 2
+      return MultiVector3D.new(0.0,0.0,0.0,0.0,
+			       @blade2[0],@blade2[1],@blade2[2],0.0)
+      when 3
+      return MultiVector3D.new(0.0,0.0,0.0,0.0,
+			       0.0,0.0,0.0,@blade3)
+      else
+      print "Error: invalid grade, #{projGrade}"
+      return
+    end
   end
 
   # String version of the multivector

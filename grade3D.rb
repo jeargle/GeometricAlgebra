@@ -44,8 +44,8 @@ class Grade3D
     return false
   end
 
-  # 
-  def multivector?()
+  # Whether multivector only has elements of a single grade
+  def homogeneous?()
     gradeSum = 0
     @grade.each do |i|
       if i then
@@ -53,14 +53,14 @@ class Grade3D
       end
     end
     if gradeSum > 1
-      return true
+      return false
     end
-    return false
+    return true
   end
 
-  # 
+  # Return a string representation
   def to_s()
-    if multivector?
+    if !homogeneous?
       return "multiVector"
     elsif (@grade[1])
       return "1"

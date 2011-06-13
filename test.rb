@@ -28,20 +28,13 @@ add15 = num1 + num5
 add51 = num5 + num1
 
 puts ""
-puts "Addition"
+puts "*** Addition ***"
 puts "num1 + num1 = #{add11}"
 puts "num1 + num2 = #{add12}"
 puts "num1 + num3 = #{add13}"
 puts "num1 + num4 = #{add14}"
 puts "num1 + num5 = #{add15}"
 puts "num5 + num1 = #{add51}"
-
-#wedge11 = num1.wedge(num1)
-#wedge12 = num1.wedge(num2)
-#wedge13 = num1.wedge(num3)
-#wedge14 = num1.wedge(num4)
-#wedge15 = num1.wedge(num5)
-#wedge51 = num5.wedge(num1)
 
 wedge11 = num1 ^ num1
 wedge12 = num1 ^ num2
@@ -51,7 +44,7 @@ wedge15 = num1 ^ num5
 wedge51 = num5 ^ num1
 
 puts ""
-puts "Wedge Product"
+puts "*** Wedge Product ***"
 puts "num1 ^ num1 = #{wedge11}"
 puts "num1 ^ num2 = #{wedge12}"
 puts "num1 ^ num3 = #{wedge13}"
@@ -67,7 +60,7 @@ dot15 = num1.dot(num5)
 dot51 = num5.dot(num1)
 
 puts ""
-puts "Dot Product"
+puts "*** Dot Product ***"
 puts "num1 . num1 = #{dot11}"
 puts "num1 . num2 = #{dot12}"
 puts "num1 . num3 = #{dot13}"
@@ -84,7 +77,7 @@ geom15 = num1.geom(num5)
 geom51 = num5.geom(num1)
 
 puts ""
-puts "Geometric Product"
+puts "*** Geometric Product ***"
 puts "num1 num1 = #{geom11}"
 puts "num1 num2 = #{geom12}"
 puts "num1 num3 = #{geom13}"
@@ -97,7 +90,7 @@ num7 = MultiVector2D.new(0,1.0,1.0,0)
 num8 = MultiVector2D.new(0,0.5,0.5,0)
 
 puts ""
-puts "Rotation"
+puts "*** Rotation ***"
 puts "num1 rotate(PI) = #{num1.rotate(Math::PI)}"
 puts "num1 rotate(PI/2) = #{num1.rotate(Math::PI/2)}"
 puts "num1 rotate(-PI/2) = #{num1.rotate(-Math::PI/2)}"
@@ -111,8 +104,28 @@ puts "num8 rotate(1) = #{num8.rotate(1)}"
 puts "num8 rotate(1/2) = #{num8.rotate(1.0/2)}"
 puts "num8 rotate(-1/2) = #{num8.rotate(-1.0/2)}"
 
+puts ""
+puts "*** Get Projection of Given Grade ***"
+puts "num4 grade 0 = #{num4.getGrade(0)}"
+puts "num4 grade 1 = #{num4.getGrade(1)}"
+puts "num4 grade 2 = #{num4.getGrade(2)}"
+
 
 # MultiVector3D
+
+puts ""
+puts "*****************"
+puts "* MultiVector3D *"
+puts "*****************"
+
+e1 = MultiVector3D.new(0,1,0,0,0,0,0,0)
+e2 = MultiVector3D.new(0,0,1,0,0,0,0,0)
+e3 = MultiVector3D.new(0,0,0,1,0,0,0,0)
+e12 = MultiVector3D.new(0,0,0,0,1,0,0,0)
+e23 = MultiVector3D.new(0,0,0,0,0,1,0,0)
+e31 = MultiVector3D.new(0,0,0,0,0,0,1,0)
+e123 = MultiVector3D.new(0,0,0,0,0,0,0,1)
+
 ber1 = MultiVector3D.new(0,1,2,3,0,0,0,0)
 ber2 = MultiVector3D.new(0,0,0,0,3,0,0,0)
 ber3 = MultiVector3D.new(4,0,0,0,0,0,0,0)
@@ -143,3 +156,72 @@ puts "ber1 + ber3 = #{add13}"
 puts "ber1 + ber4 = #{add14}"
 puts "ber1 + ber5 = #{add15}"
 puts "ber5 + ber1 = #{add51}"
+
+in1_1 = e1.dot(e1)
+in1_2 = e1.dot(e2)
+in1_3 = e1.dot(e3)
+in1_12 = e1.dot(e12)
+in1_23 = e1.dot(e23)
+in1_31 = e1.dot(e31)
+in1_123 = e1.dot(e123)
+
+puts ""
+puts "*** Dot Product ***"
+puts "e1 . e1 = #{in1_1}"
+puts "e1 . e2 = #{in1_2}"
+puts "e1 . e3 = #{in1_3}"
+puts "e1 . e12 = #{in1_12}"
+puts "e1 . e23 = #{in1_23}"
+puts "e1 . e31 = #{in1_31}"
+puts "e1 . e123 = #{in1_123}"
+
+out1_1 = e1 ^ e1
+out1_2 = e1 ^ e2
+out1_3 = e1 ^ e3
+out1_12 = e1 ^ e12
+out1_23 = e1 ^ e23
+out1_31 = e1 ^ e31
+out1_123 = e1 ^ e123
+
+out2_1 = e2 ^ e1
+out2_2 = e2 ^ e2
+out2_3 = e2 ^ e3
+
+out3_1 = e3 ^ e1
+out3_2 = e3 ^ e2
+out3_3 = e3 ^ e3
+
+puts ""
+puts "*** Wedge Product ***"
+puts "e1 ^ e1 = #{out1_1}"
+puts "e1 ^ e2 = #{out1_2}"
+puts "e1 ^ e3 = #{out1_3}"
+puts "e1 ^ e12 = #{out1_12}"
+puts "e1 ^ e23 = #{out1_23}"
+puts "e1 ^ e31 = #{out1_31}"
+puts "e1 ^ e123 = #{out1_123}"
+puts ""
+puts "e2 ^ e1 = #{out2_1}"
+puts "e2 ^ e2 = #{out2_2}"
+puts "e2 ^ e3 = #{out2_3}"
+puts ""
+puts "e3 ^ e1 = #{out3_1}"
+puts "e3 ^ e2 = #{out3_2}"
+puts "e3 ^ e3 = #{out3_3}"
+
+g1_1 = e1.geom(e1)
+g1_2 = e1.geom(e2)
+g1_3 = e1.geom(e3)
+
+puts ""
+puts "*** Geometric Product ***"
+puts "e1 * e1 = #{g1_1}"
+puts "e1 * e2 = #{g1_2}"
+puts "e1 * e3 = #{g1_3}"
+
+puts ""
+puts "*** Get Projection of Given Grade ***"
+puts "ber5 grade 0 = #{ber5.getGrade(0)}"
+puts "ber5 grade 1 = #{ber5.getGrade(1)}"
+puts "ber5 grade 2 = #{ber5.getGrade(2)}"
+puts "ber5 grade 3 = #{ber5.getGrade(3)}"

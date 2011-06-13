@@ -36,14 +36,14 @@ class Grade2D
     return false
   end
 
-  # 
-  def multivector?()
+  # Whether multivector only has elements of a single grade
+  def homogeneous?()
     if (@grade[0] && @grade[1]) ||
         (@grade[0] && @grade[2]) ||
         (@grade[1] && @grade[2])
-      return true
+      return false
     end
-    return false
+    return true
   end
 
   # 
