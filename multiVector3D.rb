@@ -1,14 +1,10 @@
-#
-# Geometric Algebra
-# MultiVector3D
-#
-# John Eargle
-# 2010, 2011
-#
+# Author:: John Eargle (mailto: jeargle at gmail.com)
+# 2010-2015
+# :title: MultiVector3D
 
 include Math
 require 'matrix'
-require 'grade3D'
+require_relative 'grade3D'
 
 
 class MultiVector3D

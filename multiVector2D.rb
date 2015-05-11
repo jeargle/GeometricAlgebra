@@ -1,14 +1,10 @@
-#
-# Geometric Algebra
-# MultiVector2D
-#
-# John Eargle
-# 2010, 2011
-#
+# Author:: John Eargle (mailto: jeargle at gmail.com)
+# 2010-2015
+# :title: MultiVector2D
 
 include Math
 require 'matrix'
-require 'grade2D'
+require_relative 'grade2D'
 
 class MultiVector2D
   

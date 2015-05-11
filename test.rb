@@ -1,8 +1,11 @@
-#!/usr/bin/env ruby -w
+#!/usr/bin/ruby
 
-#require 'geometricAlgebra'
-require 'multiVector2D'
-require 'multiVector3D'
+# Author:: John Eargle (mailto: jeargle at gmail.com)
+# 2010-2015
+# :title: test
+
+require_relative 'multiVector2D'
+require_relative 'multiVector3D'
 
 puts "MultiVector Test"
 
