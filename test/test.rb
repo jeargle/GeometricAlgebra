@@ -4,8 +4,8 @@
 # 2010-2015
 # :title: test
 
-require_relative 'multiVector2D'
-require_relative 'multiVector3D'
+require_relative '../src/multiVector2D'
+require_relative '../src/multiVector3D'
 
 puts "MultiVector Test"
 
