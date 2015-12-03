@@ -13,9 +13,9 @@ class MultiVector2D
   # Initialize
   def initialize(blade0, blade11, blade12, blade2)
     @blade0 = blade0
-    @blade1 = Vector[blade11,blade12]
+    @blade1 = Vector[blade11, blade12]
     @blade2 = blade2
-    @grade = Grade2D.new(blade0,blade11,blade12,blade2)
+    @grade = Grade2D.new(blade0, blade11, blade12, blade2)
   end
 
   # Multivector addition
@@ -38,7 +38,7 @@ class MultiVector2D
   # return 0-vector (scalar)
   # a*b = 1/2 (ab + ba)
   def dot(num)
-    return MultiVector2D.new(0.5,0.0,0.0,0.0).geom(self.geom(num) + num.geom(self))
+    return MultiVector2D.new(0.5, 0.0, 0.0, 0.0).geom(self.geom(num) + num.geom(self))
   end
 
   # Wedge product (outer product)
@@ -49,7 +49,7 @@ class MultiVector2D
     #blade1 = num.blade1 * @blade0 + @blade1 * num.blade0
     #blade2 = @blade0 * num.blade2 + @blade2 * num.blade0 + (@blade1[0] * num.blade1[1]) - (@blade1[1] * num.blade1[0])
     #return MultiVector2D.new(blade0,blade1[0],blade1[1],blade2)
-    return MultiVector2D.new(0.5,0.0,0.0,0.0).geom(self.geom(num) - num.geom(self))
+    return MultiVector2D.new(0.5, 0.0, 0.0, 0.0).geom(self.geom(num) - num.geom(self))
   end
 
   # Geometric product
@@ -78,12 +78,12 @@ class MultiVector2D
       @blade1[0] * num.blade1[1] -
       @blade1[1] * num.blade1[0] +
       @blade2 * num.blade0
-    return MultiVector2D.new(blade0,blade1[0],blade1[1],blade2)
+    return MultiVector2D.new(blade0, blade1[0], blade1[1], blade2)
   end
 
   # Rotate multivector by given angle
   def rotate(angle)
-    return geom(MultiVector2D.new(cos(angle),0.0,0.0,sin(angle)))
+    return geom(MultiVector2D.new(cos(angle), 0.0, 0.0, sin(angle)))
   end
 
   # Return the multivector's grade
@@ -108,11 +108,11 @@ class MultiVector2D
   def getGrade(projGrade)
     case projGrade
       when 0
-      return MultiVector2D.new(@blade0,0.0,0.0,0.0) 
+      return MultiVector2D.new(@blade0, 0.0, 0.0, 0.0) 
       when 1
-      return MultiVector2D.new(0.0,@blade1[0],@blade1[1],0.0) 
+      return MultiVector2D.new(0.0, @blade1[0], @blade1[1], 0.0) 
       when 2
-      return MultiVector2D.new(0.0,0.0,0.0,@blade2) 
+      return MultiVector2D.new(0.0, 0.0, 0.0, @blade2) 
       else
       print "Error: invalid grade, #{projGrade}"
       return

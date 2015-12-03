@@ -12,14 +12,18 @@ class MultiVector3D
   attr_reader :blade0, :blade1, :blade2, :blade3
 
   # Initialize
-  def initialize(blade0, blade11, blade12, blade13,
-		 blade21, blade22, blade23, blade3)
+  def initialize(blade0,
+                 blade11, blade12, blade13,
+		 blade21, blade22, blade23,
+                 blade3)
     @blade0 = blade0
-    @blade1 = Vector[blade11,blade12,blade13]
-    @blade2 = Vector[blade21,blade22,blade23]
+    @blade1 = Vector[blade11, blade12, blade13]
+    @blade2 = Vector[blade21, blade22, blade23]
     @blade3 = blade3
-    @grade = Grade3D.new(blade0,blade11,blade12,blade13,
-			 blade21,blade22,blade23,blade3)
+    @grade = Grade3D.new(blade0,
+                         blade11, blade12, blade13,
+			 blade21, blade22, blade23,
+                         blade3)
   end
 
   # Multivector addition
@@ -50,14 +54,14 @@ class MultiVector3D
   # return 0-vector (scalar)
   # a*b = 1/2 (ab + ba)
   def dot(num)
-    return MultiVector3D.new(0.5,0,0,0,0,0,0,0).geom(self.geom(num) + num.geom(self))
+    return MultiVector3D.new(0.5, 0, 0, 0, 0, 0, 0, 0).geom(self.geom(num) + num.geom(self))
   end
 
   # Wedge product (outer product)
   # return 3-vector
   # a^b = 1/2 (ab - ba)
   def ^(num)
-    return MultiVector3D.new(0.5,0,0,0,0,0,0,0).geom(self.geom(num) - num.geom(self))
+    return MultiVector3D.new(0.5, 0, 0, 0, 0, 0, 0, 0).geom(self.geom(num) - num.geom(self))
   end
 
   # Geometric product
@@ -139,8 +143,10 @@ class MultiVector3D
       @blade2[2] * num.blade1[1] +
       @blade3 * num.blade0
 
-    return MultiVector3D.new(blade0,blade1[0],blade1[1],blade1[2],
-			     blade2[0],blade2[1],blade2[2],blade3)
+    return MultiVector3D.new(blade0,
+                             blade1[0], blade1[1], blade1[2],
+			     blade2[0], blade2[1], blade2[2],
+                             blade3)
   end
 
   # Rotate multivector by given angle
@@ -170,19 +176,27 @@ class MultiVector3D
   def getGrade(projGrade)
     case projGrade
       when 0
-      return MultiVector3D.new(@blade0,0.0,0.0,0.0,
-			       0.0,0.0,0.0,0.0)
+        return MultiVector3D.new(@blade0,
+                                 0.0, 0.0, 0.0,
+			         0.0, 0.0, 0.0,
+                                 0.0)
       when 1
-      return MultiVector3D.new(0.0,@blade1[0],@blade1[1],@blade1[2],
-			       0.0,0.0,0.0,0.0)
+        return MultiVector3D.new(0.0,
+                                 @blade1[0], @blade1[1], @blade1[2],
+			         0.0, 0.0, 0.0,
+                                 0.0)
       when 2
-      return MultiVector3D.new(0.0,0.0,0.0,0.0,
-			       @blade2[0],@blade2[1],@blade2[2],0.0)
+        return MultiVector3D.new(0.0,
+                                 0.0, 0.0, 0.0,
+			         @blade2[0], @blade2[1], @blade2[2],
+                                 0.0)
       when 3
-      return MultiVector3D.new(0.0,0.0,0.0,0.0,
-			       0.0,0.0,0.0,@blade3)
+        return MultiVector3D.new(0.0,
+                                 0.0, 0.0, 0.0,
+			         0.0, 0.0, 0.0,
+                                 @blade3)
       else
-      print "Error: invalid grade, #{projGrade}"
+        print "Error: invalid grade, #{projGrade}"
       return
     end
   end
@@ -198,8 +212,11 @@ class MultiVector3D
     elsif @grade.isGrade?(3)
       return "#{@blade3}e123"
     end
-    return "#{@blade0} + (#{@blade1[0]}e1 + #{@blade1[1]}e2 + #{@blade1[2]}e3) + " +
-      "(#{@blade2[0]}e12 + #{@blade2[1]}e23 + #{@blade2[2]}e31) + #{@blade3}e123"
+    
+    return "#{@blade0} + " +
+           "(#{@blade1[0]}e1 + #{@blade1[1]}e2 + #{@blade1[2]}e3) + " +
+           "(#{@blade2[0]}e12 + #{@blade2[1]}e23 + #{@blade2[2]}e31) + " +
+           "#{@blade3}e123"
   end
 
 end
